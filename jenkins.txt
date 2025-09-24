@@ -1,0 +1,11 @@
+node{
+    stage('Checkout'){
+        checkout changelog: false, scm: scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Kiran-Komroju/el_task2']])
+    }
+    stage('Build'){
+        sh 'mvn clean package'
+    }
+    stage('Deploy') {
+        sh 'java -jar target/*.jar --server.port=8081'
+    }
+}
